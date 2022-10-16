@@ -9,7 +9,7 @@ function woo_product_price_2sats() {
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HEADER, 0);
     $data = number_format(ltrim(curl_exec($ch), "0."));
-	$product_p_formated=rtrim($product_p, ".0");
+	$product_p_formated=rtrim($total, ".0");
 	curl_close($ch);
     print "<span class='btc-price'>{$data} Sats&nbsp;</span>";
 	print "<span class='fiat-price'>&nbsp;{$product_p_formated} €</span>";

@@ -3,15 +3,15 @@ $woo_currency = get_woocommerce_currency();
 function woo_product_price_2sats() {
 	global $woo_currency;
 	$all_meta_data = get_post_meta(get_the_ID());
-	$product_p=$all_meta_data['_regular_price'][0];
-	$price_oracle_url = "https://blockchain.info/tobtc?currency=$woo_currency&value=$product_p";
+	$total=$all_meta_data['_regular_price'][0];
+	$price_oracle_url = "https://blockchain.info/tobtc?currency=$woo_currency&value=$total";
 	$ch = curl_init($price_oracle_url);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HEADER, 0);
     $data = number_format(ltrim(curl_exec($ch), "0."));
 	$product_p_formated=rtrim($product_p, ".0");
 	curl_close($ch);
-    print "<img class='sat-favicon' src='/wordpress/wp-content/uploads/2022/10/Satoshi-regular-elipse.svg' width=40px;/><span class='btc-price'>{$data} Sats&nbsp;</span>";
+    print "<span class='btc-price'>{$data} Sats&nbsp;</span>";
 	print "<span class='fiat-price'>&nbsp;{$product_p_formated} €</span>";
 }
 function woo_cart_total_2sats($currency) {
@@ -23,7 +23,7 @@ function woo_cart_total_2sats($currency) {
     curl_setopt($ch, CURLOPT_HEADER, 0);
     $data = number_format(ltrim(curl_exec($ch), "0."));
 	curl_close($ch);
-	print "<img class='sat-favicon' src='/wordpress/wp-content/uploads/2022/10/Satoshi-regular-elipse.svg' width=40px;/><span class='btc-price'>{$data} Sats&nbsp;</span>";
+	print "<span class='btc-price'>{$data} Sats&nbsp;</span>";
 	print "<span class='fiat-price'>&nbsp;| {$total} €</span>";
 }
 function woo_cart_subtotal_2sats($currency) {
